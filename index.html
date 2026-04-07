@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cribcreww | Live your city.</title>
+    
+    <!-- Premium Apple-like Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Smooth Scroll: Lenis -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
+    <!-- Animations: GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Sleek Glass Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo">Cribcreww</div>
+            <a href="#download" class="btn-get">Get App</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-container">
+            <!-- Dynamic Background Orbs -->
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+            <div class="glow-orb orb-3"></div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gsap-hero-text">Live your city.</span><br>
+                    <span class="text-gradient gsap-hero-text">In the moment.</span>
+                </h1>
+                <p class="hero-subtitle gsap-hero-text">
+                    Discover run clubs, pop-up parties, and real-time hotspots. 
+                    Connect with locals and travelers instantly.
+                </p>
+                <div class="hero-actions gsap-hero-text">
+                    <button class="btn-primary">Download App</button>
+                    <button class="btn-secondary">See how it works <i data-lucide="play-circle"></i></button>
+                </div>
+            </div>
+            
+            <!-- Apple-style Pure CSS Phone Mockup -->
+            <div class="hero-mockup-wrapper gsap-hero-mockup">
+                 <div class="phone-mockup">
+                     <div class="phone-screen">
+                         <div class="dynamic-island"></div>
+                         
+                         <!-- Mockup UI Inside -->
+                         <div class="app-ui">
+                            <div class="map-bg"></div>
+                            <div class="ui-header">
+                                <div class="city-pill">📍 Gurgaon, Cyber Hub</div>
+                            </div>
+                            <div class="feed-scroll">
+                                <div class="feed-item">
+                                    <div class="feed-header">
+                                        <div class="avatar"></div>
+                                        <div class="feed-info">
+                                            <div class="name">Sarah L.</div>
+                                            <div class="time">Just now</div>
+                                        </div>
+                                    </div>
+                                    <div class="feed-media">
+                                        <div class="vibe-tag"><i data-lucide="zap"></i> Electric Vibe</div>
+                                    </div>
+                                </div>
+                                <div class="feed-item">
+                                    <div class="feed-header">
+                                        <div class="avatar a2"></div>
+                                        <div class="feed-info">
+                                            <div class="name">Rohit M.</div>
+                                            <div class="time">2m ago</div>
+                                        </div>
+                                    </div>
+                                    <p class="feed-text">Heavy traffic near DLF phase 2. Avoid if possible! 🚗🚫</p>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Value Prop Section -->
+        <section class="story-section">
+            <div class="container text-center">
+                <h2 class="section-title gsap-up">Beyond static feeds.</h2>
+                <p class="section-desc gsap-up">
+                    Forget outdated reviews and curated highlights. Cribcreww maps fragmented local scenes, bringing you raw snaps, immediate alerts, and instant neighborhood chats tailored exactly to your coordinates.
+                </p>
+            </div>
+        </section>
+
+        <!-- Premium Bento Grid -->
+        <section class="bento-section">
+            <div class="container">
+                <div class="bento-grid">
+                    
+                    <!-- Feature 1: City Feeds -->
+                    <div class="bento-card col-span-2 row-span-2 gsap-bento feed-card">
+                       <div class="bento-text">
+                           <h3>City-Specific Feeds</h3>
+                           <p>Scroll true real-time snaps and stories strictly gated by your current neighborhood. Tap into the unorganized scene.</p>
+                       </div>
+                       <div class="bento-visual">
+                           <div class="glass-feed-item g1">
+                               <div class="avatar-sm"></div>
+                               <span>Pop-up thrift store at Sector 29! 👕✨</span>
+                           </div>
+                           <div class="glass-feed-item g2">
+                               <div class="avatar-sm a2"></div>
+                               <span>Morning Run Club meeting in 10 mins.</span>
+                           </div>
+                           <div class="glass-feed-item g3">
+                               <div class="avatar-sm a3"></div>
+                               <span>Who is at the concert tonight? 🎸</span>
+                           </div>
+                       </div>
+                    </div>
+
+                    <!-- Feature 2: Real Time Alerts -->
+                    <div class="bento-card col-span-1 row-span-1 gsap-bento alert-card">
+                        <div class="bento-text">
+                            <h3>Real-Time Alerts</h3>
+                            <p>Instant safety tips, roadblocks, and gig postings.</p>
+                        </div>
+                        <div class="icon-ring">
+                            <i data-lucide="bell" class="bento-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: Live Chat -->
+                    <div class="bento-card col-span-1 row-span-2 gsap-bento chat-card">
+                        <div class="bento-text">
+                            <h3>24/7 Live Townhall</h3>
+                            <p>Open group chats for immediate local advice and traveler intros.</p>
+                        </div>
+                        <div class="chat-visual">
+                            <div class="chat-pill incoming">Best spot for coffee now?</div>
+                            <div class="chat-pill outgoing">Blue Tokai is empty! ⚡</div>
+                            <div class="chat-pill incoming">Thanks, heading there 🏃</div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Hotspot Discovery -->
+                    <div class="bento-card col-span-1 row-span-1 gsap-bento discovery-card">
+                        <div class="bento-text">
+                            <h3>Hotspot Discovery</h3>
+                            <p>Know the vibe before you arrive.</p>
+                        </div>
+                        <div class="vibe-meter">
+                            <div class="meter-bar">
+                                <div class="meter-fill"></div>
+                            </div>
+                            <div class="meter-labels">
+                                <span>Chill</span>
+                                <span>Electric</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container text-center gsap-up">
+                <h2 class="cta-title">Ready to explore?</h2>
+                <button class="btn-primary lg text-black mt-8">Download Cribcreww</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h2 class="logo-text">Cribcreww</h2>
+                    <p class="footer-desc">The ultimate hyperlocal social companion.</p>
+                </div>
+                <div class="footer-right">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Cribcreww Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
