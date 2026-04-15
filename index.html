@@ -5,160 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cribcreww | Live your city.</title>
     
-    <!-- Premium Apple-like Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
     
-    <!-- Smooth Scroll: Lenis -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
-    
-    <!-- Animations: GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- 3D Spline Viewer for instant Premium Feel -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
 </head>
 <body>
 
-    <!-- Sleek Glass Navbar -->
+    <!-- Sticky Header -->
     <nav class="navbar" id="navbar">
         <div class="nav-content">
             <div class="logo">Cribcreww</div>
-            <a href="#download" class="btn-get">Get App</a>
+            <a href="#download" class="btn-get">Download App</a>
         </div>
     </nav>
 
-    <main>
-        <!-- Hero Section -->
+    <main class="funnel-wrapper">
+        <!-- HERO SECTION: Hook the user -->
         <section class="hero-container">
-            <!-- Dynamic Background Orbs -->
+            <!-- Ambient Background Glow -->
             <div class="glow-orb orb-1"></div>
             <div class="glow-orb orb-2"></div>
             <div class="glow-orb orb-3"></div>
             
             <div class="hero-content">
+                <div class="pill-badge gsap-hero-text">Welcome to the future of social</div>
                 <h1 class="hero-title">
-                    <span class="gsap-hero-text">Live your city.</span><br>
-                    <span class="text-gradient gsap-hero-text">In the moment.</span>
+                    <span class="gsap-hero-text">Feel the pulse.</span><br>
+                    <span class="text-gradient gsap-hero-text">Right now.</span>
                 </h1>
                 <p class="hero-subtitle gsap-hero-text">
-                    Discover run clubs, pop-up parties, and real-time hotspots. 
-                    Connect with locals and travelers instantly.
+                    Stop scrolling yesterday's news. Cribcreww drops you straight into the live, unorganized scenes of your city—from pop-up parties to midnight townhalls.
                 </p>
                 <div class="hero-actions gsap-hero-text">
-                    <button class="btn-primary">Download App</button>
-                    <button class="btn-secondary">See how it works <i data-lucide="play-circle"></i></button>
+                    <a href="#download" class="btn-primary lg pulse-glow">Get Early Access</a>
                 </div>
             </div>
             
-            <!-- Apple-style Pure CSS Phone Mockup -->
-            <div class="hero-mockup-wrapper gsap-hero-mockup">
-                 <div class="phone-mockup">
-                     <div class="phone-screen">
-                         <div class="dynamic-island"></div>
-                         
-                         <!-- Mockup UI Inside -->
-                         <div class="app-ui">
-                            <div class="map-bg"></div>
-                            <div class="ui-header">
-                                <div class="city-pill">📍 Gurgaon, Cyber Hub</div>
+            <!-- 3D FLOATING INTERFACE (Replaces Phone) -->
+            <div class="hero-3d-wrapper gsap-hero-3d">
+                <div class="scene-3d" id="scene-3d">
+                    <!-- Central Card -->
+                    <div class="glass-panel panel-center">
+                        <div class="panel-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span>Live Feed • Gurgaon</span>
+                        </div>
+                        <div class="panel-body feed-list">
+                            <div class="feed-msg">
+                                <div class="pfp"></div>
+                                <div class="msg-content"><strong>Sarah:</strong> Cyber Hub is absolutely electric tonight! 🔥</div>
                             </div>
-                            <div class="feed-scroll">
-                                <div class="feed-item">
-                                    <div class="feed-header">
-                                        <div class="avatar"></div>
-                                        <div class="feed-info">
-                                            <div class="name">Sarah L.</div>
-                                            <div class="time">Just now</div>
-                                        </div>
-                                    </div>
-                                    <div class="feed-media">
-                                        <div class="vibe-tag"><i data-lucide="zap"></i> Electric Vibe</div>
-                                    </div>
-                                </div>
-                                <div class="feed-item">
-                                    <div class="feed-header">
-                                        <div class="avatar a2"></div>
-                                        <div class="feed-info">
-                                            <div class="name">Rohit M.</div>
-                                            <div class="time">2m ago</div>
-                                        </div>
-                                    </div>
-                                    <p class="feed-text">Heavy traffic near DLF phase 2. Avoid if possible! 🚗🚫</p>
-                                </div>
+                            <div class="feed-msg">
+                                <div class="pfp p2"></div>
+                                <div class="msg-content"><strong>Rohit:</strong> Anyone at the DLF run club yet?</div>
                             </div>
-                         </div>
-                     </div>
-                 </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Card Left -->
+                    <div class="glass-panel panel-left floating-slow">
+                        <i data-lucide="zap" class="panel-icon accel"></i>
+                        <h4>Vibe Meter</h4>
+                        <div class="bar-bg"><div class="bar-fill"></div></div>
+                        <p class="status">Electric Status</p>
+                    </div>
+
+                    <!-- Floating Card Right -->
+                    <div class="glass-panel panel-right floating-fast">
+                        <i data-lucide="map-pin" class="panel-icon loc"></i>
+                        <h4>Hotspot Alert</h4>
+                        <p class="status">Pop-up thrift store just opened at Sector 29!</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Value Prop Section -->
+        <!-- PROBLEM / AGITATION SECTION -->
         <section class="story-section">
             <div class="container text-center">
-                <h2 class="section-title gsap-up">Beyond static feeds.</h2>
+                <h2 class="section-title gsap-up">The city is moving fast. <br><span class="text-secondary">Are you missing out?</span></h2>
                 <p class="section-desc gsap-up">
-                    Forget outdated reviews and curated highlights. Cribcreww maps fragmented local scenes, bringing you raw snaps, immediate alerts, and instant neighborhood chats tailored exactly to your coordinates.
+                    Traditional apps show you curated highlights from two days ago. Cribcreww bridges the gap using hyper-local geo-fencing, giving you instant access to the people and events happening <i>in this exact moment.</i>
                 </p>
             </div>
         </section>
 
-        <!-- Premium Bento Grid -->
+        <!-- SOLUTION / BENTO GRID -->
         <section class="bento-section">
             <div class="container">
                 <div class="bento-grid">
                     
-                    <!-- Feature 1: City Feeds -->
-                    <div class="bento-card col-span-2 row-span-2 gsap-bento feed-card">
+                    <!-- Feature 1 -->
+                    <div class="bento-card col-span-2 row-span-2 gsap-bento feed-card gradient-border">
                        <div class="bento-text">
-                           <h3>City-Specific Feeds</h3>
-                           <p>Scroll true real-time snaps and stories strictly gated by your current neighborhood. Tap into the unorganized scene.</p>
+                           <h3>Hyperlocal Radar</h3>
+                           <p>Scroll stories and snaps that are strictly gated to your neighborhood.</p>
                        </div>
-                       <div class="bento-visual">
-                           <div class="glass-feed-item g1">
-                               <div class="avatar-sm"></div>
-                               <span>Pop-up thrift store at Sector 29! 👕✨</span>
-                           </div>
-                           <div class="glass-feed-item g2">
-                               <div class="avatar-sm a2"></div>
-                               <span>Morning Run Club meeting in 10 mins.</span>
-                           </div>
-                           <div class="glass-feed-item g3">
-                               <div class="avatar-sm a3"></div>
-                               <span>Who is at the concert tonight? 🎸</span>
-                           </div>
+                       <!-- 3D Embedded Spline abstract visual for premium luxury -->
+                       <div class="spline-container">
+                           <spline-viewer url="https://prod.spline.design/iWUTm-V1U-Wz2l0y/scene.splinecode" loading-anim-type="none"></spline-viewer>
                        </div>
                     </div>
 
-                    <!-- Feature 2: Real Time Alerts -->
+                    <!-- Feature 2 -->
                     <div class="bento-card col-span-1 row-span-1 gsap-bento alert-card">
                         <div class="bento-text">
                             <h3>Real-Time Alerts</h3>
-                            <p>Instant safety tips, roadblocks, and gig postings.</p>
+                            <p>Instant safety tips and roadblock updates from locals.</p>
                         </div>
-                        <div class="icon-ring">
-                            <i data-lucide="bell" class="bento-icon"></i>
+                        <div class="icon-ring pulse">
+                            <i data-lucide="radio" class="bento-icon"></i>
                         </div>
                     </div>
 
-                    <!-- Feature 3: Live Chat -->
+                    <!-- Feature 3 -->
                     <div class="bento-card col-span-1 row-span-2 gsap-bento chat-card">
                         <div class="bento-text">
-                            <h3>24/7 Live Townhall</h3>
-                            <p>Open group chats for immediate local advice and traveler intros.</p>
+                            <h3>24/7 Townhall</h3>
+                            <p>Open group chats for immediate advice and traveler intros.</p>
                         </div>
                         <div class="chat-visual">
-                            <div class="chat-pill incoming">Best spot for coffee now?</div>
-                            <div class="chat-pill outgoing">Blue Tokai is empty! ⚡</div>
-                            <div class="chat-pill incoming">Thanks, heading there 🏃</div>
+                            <div class="chat-bubble incoming">Best spot for coffee now?</div>
+                            <div class="chat-bubble outgoing">Blue Tokai is empty! ⚡</div>
+                            <div class="chat-bubble incoming">Thanks, heading there 🏃</div>
                         </div>
                     </div>
 
-                    <!-- Feature 4: Hotspot Discovery -->
+                    <!-- Feature 4 -->
                     <div class="bento-card col-span-1 row-span-1 gsap-bento discovery-card">
                         <div class="bento-text">
                             <h3>Hotspot Discovery</h3>
@@ -166,10 +151,10 @@
                         </div>
                         <div class="vibe-meter">
                             <div class="meter-bar">
-                                <div class="meter-fill"></div>
+                                <div class="meter-fill gradient-anim"></div>
                             </div>
                             <div class="meter-labels">
-                                <span>Chill</span>
+                                <span>Dead</span>
                                 <span>Electric</span>
                             </div>
                         </div>
@@ -179,11 +164,15 @@
             </div>
         </section>
         
-        <!-- CTA Section -->
-        <section class="cta-section">
+        <!-- MASSIVE CTA SECTION (The Funnel End) -->
+        <section id="download" class="cta-section">
             <div class="container text-center gsap-up">
-                <h2 class="cta-title">Ready to explore?</h2>
-                <button class="btn-primary lg text-black mt-8">Download Cribcreww</button>
+                <div class="cta-box">
+                    <h2 class="cta-title">Don't be the last to know.</h2>
+                    <p class="cta-desc">Join the beta and connect with your city like never before.</p>
+                    <button class="btn-primary massive btn-glow">Download Cribcreww Now</button>
+                    <p class="cta-micro">Available on iOS and Android</p>
+                </div>
             </div>
         </section>
 
@@ -199,7 +188,7 @@
                 <div class="footer-right">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Service</a>
-                    <a href="#">Contact Us</a>
+                    <a href="#">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
