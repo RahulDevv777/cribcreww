@@ -12,6 +12,8 @@ let currentIndex = 0;
 let isAnimating = false;
 let acceptingInput = true;
 
+const waitlistAction = document.querySelector('.bottom-right-action');
+
 // Initial state: hero visible, features hidden
 gsap.set(heroEl, { autoAlpha: 1, scale: 1, force3D: true });
 features.forEach((feat) => {
@@ -24,6 +26,7 @@ function goToSlide(targetIndex) {
     if (targetIndex === currentIndex) return;
 
     isAnimating = true;
+    acceptingInput = false;
     const direction = targetIndex > currentIndex ? 1 : -1;
     const current = slides[currentIndex];
     const next = slides[targetIndex];
@@ -54,6 +57,17 @@ function goToSlide(targetIndex) {
     }, 0.35);
 
     currentIndex = targetIndex;
+
+    // Toggle waitlist button visibility
+    if (waitlistAction) {
+        if (currentIndex === 0) {
+            waitlistAction.style.opacity = '1';
+            waitlistAction.style.visibility = 'visible';
+        } else {
+            waitlistAction.style.opacity = '0';
+            waitlistAction.style.visibility = 'hidden';
+        }
+    }
 }
 
 // After animation completes, wait until wheel/trackpad goes IDLE before
@@ -84,7 +98,6 @@ window.addEventListener('wheel', (e) => {
     if (isAnimating) return;
     if (e.deltaY === 0) return;               // pure horizontal scroll, ignore
 
-    acceptingInput = false;
     if (e.deltaY > 0) goToSlide(currentIndex + 1);
     else goToSlide(currentIndex - 1);
 }, { passive: false });
@@ -99,7 +112,7 @@ window.addEventListener('touchend', (e) => {
     if (!acceptingInput || isAnimating) return;
     const dy = touchStartY - e.changedTouches[0].clientY;
     if (Math.abs(dy) < 50) return;
-    acceptingInput = false;
+    
     if (dy > 0) goToSlide(currentIndex + 1);
     else goToSlide(currentIndex - 1);
 }, { passive: true });

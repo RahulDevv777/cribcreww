@@ -69,6 +69,36 @@ body {
     color: #c9a779;
 }
 
+.bottom-right-action {
+    position: fixed;
+    bottom: 3rem;
+    right: 4rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.bottom-btn-waitlist {
+    display: inline-block;
+    padding: 0.75rem 1.6rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    background-color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 99px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bottom-btn-waitlist:hover {
+    transform: scale(1.05);
+    background-color: #333333;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
 /* ===== DECORATIVE STRUCTURAL ELEMENTS ===== */
 .vertical-text {
     position: fixed;
