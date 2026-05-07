@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waitlist | Cribcreww Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #000000;
+            --text-light: #666666;
+            --accent: #c9a779;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+        }
+        .count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        .count strong {
+            color: var(--text);
+            font-weight: 800;
+        }
+        .table-wrap {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            background: #f5f5f5;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        td {
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: #fafafa; }
+        .email { color: var(--text-light); }
+        .city {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .city::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .time {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        .empty {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+        .empty-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+        .clear-btn {
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .clear-btn:hover {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">CRIBCREWW — Waitlist</div>
+        <div class="count">Total signups: <strong id="total-count">0</strong></div>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Joined</th>
+                </tr>
+            </thead>
+            <tbody id="entries"></tbody>
+        </table>
+        <div id="empty" class="empty">
+            <div class="empty-icon">📭</div>
+            <p>No waitlist entries yet</p>
+            <button class="clear-btn" onclick="clearAll()">Clear Demo Data</button>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'cribcreww_waitlist';
+
+        function getEntries() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function render() {
+            const entries = getEntries();
+            const tbody = document.getElementById('entries');
+            const empty = document.getElementById('empty');
+            const count = document.getElementById('total-count');
+
+            count.textContent = entries.length;
+
+            if (entries.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = entries.map(e => `
+                <tr>
+                    <td><strong>${escape(e.name)}</strong></td>
+                    <td class="email">${escape(e.email)}</td>
+                    <td><span class="city">${escape(e.city)}</span></td>
+                    <td class="time">${formatTime(e.created_at)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function escape(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatTime(iso) {
+            if (!iso) return '—';
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-IN', {
+                day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        function clearAll() {
+            localStorage.removeItem(STORAGE_KEY);
+            render();
+        }
+
+        // Add demo data if empty (for testing)
+        if (getEntries().length === 0) {
+            const demo = [
+                { name: 'Rahul Sharma', email: 'rahul@example.com', city: 'Mumbai', created_at: '2026-05-06T10:30:00Z' },
+                { name: 'Priya Patel', email: 'priya@email.com', city: 'Bangalore', created_at: '2026-05-06T11:15:00Z' },
+                { name: 'Arjun Nair', email: 'arjun.nair@gmail.com', city: 'Delhi', created_at: '2026-05-06T12:00:00Z' },
+            ];
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(demo));
+        }
+
+        render();
+    </script>
+</body>
+</html>

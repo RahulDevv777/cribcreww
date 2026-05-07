@@ -1,145 +1,133 @@
-// --- 0. DYNAMIC BACKEND BOOTSTRAP (Invisible Logic) ---
-(function() {
-    // 1. Inject Modal HTML into Body
-    const modalHTML = `
-        <div id="waitlist-modal" class="modal-overlay">
-            <div class="modal-content glass-panel">
-                <button class="close-modal"><i data-lucide="x"></i></button>
-                <div class="modal-header">
-                    <div class="pill-badge">Early Access</div>
-                    <h3>Feel the pulse of your city.</h3>
-                    <p>Join the inner circle. We'll drop you an invite as soon as your neighborhood goes live.</p>
-                </div>
-                <form id="waitlist-form">
-                    <div class="input-group">
-                        <i data-lucide="mail" class="input-icon"></i>
-                        <input type="email" id="waitlist-email" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" class="btn-primary massive w-full text-center" id="submit-btn" style="width:100%">
-                        <span class="btn-text">Reserve My Spot</span>
-                        <div class="loader hidden"></div>
-                    </button>
-                </form>
-                <div id="form-msg" class="msg-box hidden"></div>
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+// --- DISCRETE SLIDE-BASED NAVIGATION ---
+// One gesture = one slide. Speed/length of scroll doesn't matter — direction does.
 
-    // 2. Load Supabase SDK Dynamically
-    const sbScript = document.createElement('script');
-    sbScript.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-    sbScript.onload = () => { initWaitlist(); };
-    document.head.appendChild(sbScript);
+document.body.style.overflow = 'hidden';
+document.body.style.height = '100vh';
 
-    // 3. Initialize Waitlist Wiring
-    function initWaitlist() {
-        const modal = document.getElementById('waitlist-modal');
-        const openBtns = document.querySelectorAll('.btn-get, .btn-primary, .btn-glow');
-        const closeBtn = document.querySelector('.close-modal');
-        const waitlistForm = document.getElementById('waitlist-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const formMsg = document.getElementById('form-msg');
+const features = gsap.utils.toArray('.feature-item');
+const heroEl = document.querySelector('.hero-wrapper');
+const slides = [heroEl, ...features];
 
-        const openModal = (e) => { e.preventDefault(); modal.classList.add('active'); document.body.style.overflow = 'hidden'; };
-        const closeModal = () => { modal.classList.remove('active'); document.body.style.overflow = ''; };
+let currentIndex = 0;
+let isAnimating = false;
+let acceptingInput = true;
 
-        if (openBtns) openBtns.forEach(btn => btn.addEventListener('click', openModal));
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+// Initial state: hero visible, features hidden
+gsap.set(heroEl, { autoAlpha: 1, scale: 1, force3D: true });
+features.forEach((feat) => {
+    gsap.set(feat, { autoAlpha: 0, scale: 0.94, force3D: true });
+});
 
-        if (waitlistForm) {
-            const supabaseUrl = 'https://iwdkyeilyrpfijynhuvh.supabase.co';
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3ZGt5ZWlseXJwZmlqeW5odXZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2Mzg4NTksImV4cCI6MjA5MTIxNDg1OX0.KQ1W2q5DhwexVupSr04VWWcjDSz8pd2V5O2t6_M3OY8';
-            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+function goToSlide(targetIndex) {
+    if (isAnimating) return;
+    if (targetIndex < 0 || targetIndex >= slides.length) return;
+    if (targetIndex === currentIndex) return;
 
-            waitlistForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('waitlist-email').value;
-                submitBtn.disabled = true;
-                try {
-                    const { error } = await supabase.from('waitlist').insert([{ email }]);
-                    if (error) {
-                        if (error.code === '23505') alert('Already on the list! ⚡');
-                        else throw error;
-                    } else {
-                        alert('Welcome to the pulse! 🚀');
-                        closeModal();
-                        waitlistForm.reset();
-                    }
-                } catch (err) {
-                    alert('Error connecting to backend.');
-                } finally {
-                    submitBtn.disabled = false;
-                }
-            });
+    isAnimating = true;
+    const direction = targetIndex > currentIndex ? 1 : -1;
+    const current = slides[currentIndex];
+    const next = slides[targetIndex];
+
+    gsap.set(next, { autoAlpha: 0, scale: direction > 0 ? 0.94 : 1.06 });
+
+    const tl = gsap.timeline({
+        onComplete: () => {
+            isAnimating = false;
+            rearmInput();
         }
-    }
-})();
-
-// Initialize Lucide Icons
-try { lucide.createIcons(); } catch(e) {}
-
-// --- 1. SUPER SMOOTH SCROLLING WITH LENIS ---
-const lenis = new Lenis({
-    duration: 1.6,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 0.8,
-    smoothTouch: false,
-});
-
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// --- 2. GSAP INTEGRATION ---
-gsap.registerPlugin(ScrollTrigger);
-
-// Navbar Reveal
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) { navbar.classList.add('scrolled'); }
-    else { navbar.classList.remove('scrolled'); }
-});
-
-// --- 3. FUNNEL HERO ANIMATIONS ---
-gsap.fromTo(".gsap-hero-text", 
-    { y: 60, opacity: 0, scale: 0.98 },
-    { y: 0, opacity: 1, scale: 1, duration: 1.4, stagger: 0.15, ease: "power4.out", delay: 0.2 }
-);
-
-gsap.fromTo(".gsap-hero-3d",
-    { y: 150, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1, duration: 1.8, ease: "power3.out", delay: 0.5 }
-);
-
-// --- 4. 3D INTERACTIVE HERO FLOAT EFFECT ---
-const scene3D = document.getElementById('scene-3d');
-if (scene3D && window.innerWidth > 768) {
-    document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        scene3D.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
     });
+
+    tl.to(current, {
+        autoAlpha: 0,
+        scale: direction > 0 ? 1.06 : 0.94,
+        duration: 0.55,
+        ease: "power2.inOut",
+        force3D: true,
+    }, 0);
+
+    tl.to(next, {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.7,
+        ease: "power3.out",
+        force3D: true,
+    }, 0.35);
+
+    currentIndex = targetIndex;
 }
 
-// --- 5. STORY REVEALS ---
-gsap.utils.toArray('.gsap-up').forEach(elem => {
-    gsap.fromTo(elem, 
-        { y: 80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.6, ease: "power4.out", scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" } }
-    );
+// After animation completes, wait until wheel/trackpad goes IDLE before
+// accepting the next gesture. This naturally absorbs trackpad inertia
+// without filtering out the user's first real event.
+let lastWheelTs = -Infinity;
+function rearmInput() {
+    const startedAt = performance.now();
+    const tick = () => {
+        const now = performance.now();
+        const idleFor = now - lastWheelTs;
+        // Re-enable when 120ms of trackpad silence, or after 1.5s safety cap.
+        if (idleFor > 120 || now - startedAt > 1500) {
+            acceptingInput = true;
+        } else {
+            setTimeout(tick, 30);
+        }
+    };
+    tick();
+}
+
+// --- INPUT: WHEEL / TRACKPAD ---
+window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    lastWheelTs = performance.now();          // record EVERY event for idle-detection only
+
+    if (!acceptingInput) return;
+    if (isAnimating) return;
+    if (e.deltaY === 0) return;               // pure horizontal scroll, ignore
+
+    acceptingInput = false;
+    if (e.deltaY > 0) goToSlide(currentIndex + 1);
+    else goToSlide(currentIndex - 1);
+}, { passive: false });
+
+// --- INPUT: TOUCH (mobile) ---
+let touchStartY = 0;
+window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchend', (e) => {
+    if (!acceptingInput || isAnimating) return;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) < 50) return;
+    acceptingInput = false;
+    if (dy > 0) goToSlide(currentIndex + 1);
+    else goToSlide(currentIndex - 1);
+}, { passive: true });
+
+// --- INPUT: KEYBOARD ---
+window.addEventListener('keydown', (e) => {
+    if (isAnimating) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        goToSlide(currentIndex + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        goToSlide(currentIndex - 1);
+    } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+    } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(slides.length - 1);
+    }
 });
 
-// --- 6. SOLUTION / BENTO GRID REVEALS ---
-gsap.utils.toArray('.gsap-bento').forEach((box, i) => {
-    gsap.fromTo(box, 
-        { y: 80, opacity: 0, scale: 0.96 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: box, start: "top 85%", toggleActions: "play none none reverse" } }
-    );
+// --- INPUT: NAV LINKS ---
+const navLinks = document.querySelectorAll('.nav-center a[data-slide-index]');
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetIndex = parseInt(link.getAttribute('data-slide-index'), 10);
+        goToSlide(targetIndex);
+    });
 });

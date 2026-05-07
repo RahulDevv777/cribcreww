@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Crew | Cribcreww</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Inter:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="waitlist.css">
+</head>
+
+<body class="waitlist-body">
+
+    <a href="index.html" class="wl-back" aria-label="Back to home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>BACK</span>
+    </a>
+
+    <span class="wl-logo">CRIBCREWW</span>
+
+    <!-- TOP MARQUEE: What you're missing out on -->
+    <section class="marquee marquee-top" aria-label="What you're missing out on">
+        <div class="marquee-label">
+            <span class="marquee-dot"></span>
+            <span>HOTTEST SPOTS IN THE CITY</span>
+        </div>
+        <div class="marquee-track marquee-track-left">
+            <div class="marquee-content">
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Cyber Hub</div><div class="mc-mood">Vibe: Insane Energy</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">842 Partying</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Sector 29</div><div class="mc-mood">Vibe: Live Music</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">510 Active</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">32nd Avenue</div><div class="mc-mood">Vibe: Elite Networking</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">320 Founders</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Golf Course Rd</div><div class="mc-mood">Vibe: Sunset Chill</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">415 Mingling</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Secret Rooftop</div><div class="mc-mood">Vibe: Exclusive Access</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">150 Inside</div></div></div></div>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Cyber Hub</div><div class="mc-mood">Vibe: Insane Energy</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">842 Partying</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Sector 29</div><div class="mc-mood">Vibe: Live Music</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">510 Active</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">32nd Avenue</div><div class="mc-mood">Vibe: Elite Networking</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">320 Founders</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Golf Course Rd</div><div class="mc-mood">Vibe: Sunset Chill</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">415 Mingling</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Secret Rooftop</div><div class="mc-mood">Vibe: Exclusive Access</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">150 Inside</div></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING CARD: Join Form -->
+    <main class="wl-stage">
+        <div class="wl-card" id="wl-card">
+            <div class="wl-eyebrow">Reserve your spot</div>
+            <h1 class="wl-title">
+                <span class="wl-script">Join the</span>
+                <span class="wl-display">CREW</span>
+            </h1>
+            <p class="wl-sub">Get in early. Live the city before everyone else does.</p>
+
+            <form id="wl-form" class="wl-form" novalidate>
+                <div class="wl-field">
+                    <label for="wl-name">Full Name</label>
+                    <input type="text" id="wl-name" name="name" autocomplete="name" required
+                        placeholder="What should we call you?">
+                </div>
+
+                <div class="wl-field">
+                    <label for="wl-email">Email</label>
+                    <input type="email" id="wl-email" name="email" autocomplete="email" required
+                        placeholder="your@email.com">
+                </div>
+
+                <div class="wl-field">
+                    <label for="wl-city">Your City</label>
+                    <input type="text" id="wl-city" name="city" autocomplete="address-level2" required
+                        placeholder="Mumbai, Bangalore, Delhi…">
+                </div>
+
+                <button type="submit" class="wl-submit">
+                    <span class="wl-submit-text">Reserve My Spot</span>
+                    <span class="wl-submit-arrow">&#8594;</span>
+                </button>
+
+                <p class="wl-fineprint">No spam. No noise. Just early access when your city goes live.</p>
+            </form>
+
+            <div class="wl-success" id="wl-success" aria-hidden="true">
+                <div class="wl-success-icon">
+                    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h2 class="wl-success-title">You're in.</h2>
+                <p class="wl-success-sub">The city will know. We'll reach out the moment Cribcreww goes live near you.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- BOTTOM MARQUEE: Live happening on Cribcreww -->
+    <section class="marquee marquee-bottom" aria-label="Happening right now on Cribcreww">
+        <div class="marquee-label">
+            <span class="marquee-dot marquee-dot-live"></span>
+            <span>WHAT YOU'RE MISSING RIGHT NOW</span>
+        </div>
+        <div class="marquee-track marquee-track-right">
+            <div class="marquee-content">
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Underground DJ Set</div><div class="mc-mood">Status: Invite Only</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">85 Raving</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Private Speakeasy</div><div class="mc-mood">Status: Password Changed</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">120 Inside</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Exclusive Tech Mixer</div><div class="mc-mood">Status: Investors Only</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">45 Pitching</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Midnight Run Club</div><div class="mc-mood">Status: Just Started</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">200 Running</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Hidden Art Gallery</div><div class="mc-mood">Status: VIP Access</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">110 Viewing</div></div></div></div>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Underground DJ Set</div><div class="mc-mood">Status: Invite Only</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">85 Raving</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Private Speakeasy</div><div class="mc-mood">Status: Password Changed</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">120 Inside</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Exclusive Tech Mixer</div><div class="mc-mood">Status: Investors Only</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">45 Pitching</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Midnight Run Club</div><div class="mc-mood">Status: Just Started</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">200 Running</div></div></div></div>
+                <div class="marquee-item"><div class="marquee-card"><div class="mc-left"><div class="mc-label">Hidden Art Gallery</div><div class="mc-mood">Status: VIP Access</div></div><div class="mc-right"><div class="mc-pulse-wrap"><span class="mc-pulse"></span> LIVE</div><div class="mc-count">110 Viewing</div></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="waitlist.js"></script>
+</body>
+
+</html>

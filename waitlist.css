@@ -1,0 +1,661 @@
+/* ===================================================================
+   WAITLIST PAGE — premium minimalist join experience
+   Top: endless FOMO marquee · Center: floating glass card · Bottom: live pulse marquee
+   =================================================================== */
+
+.waitlist-body {
+    height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 50%, #ffffff 0%, #fafafa 55%, #f1ede5 100%);
+    color: var(--text);
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Soft warm vignette behind the card to add depth without competing */
+.waitlist-body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(201, 167, 121, 0.10) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ====== BOTTOM-LEFT BACK LINK ====== */
+.wl-back {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0.6rem 1.2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    z-index: 100;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.wl-back:hover {
+    color: #c9a779;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.wl-logo {
+    position: fixed;
+    top: 2.2rem;
+    left: 2.5rem;
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    z-index: 50;
+}
+
+/* ====== MARQUEES ====== */
+.marquee {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 0;
+    overflow: visible;
+    /* Prevent label clipping */
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.marquee-top {
+    margin-top: 5.5rem;
+}
+
+.marquee-bottom {
+    margin-bottom: 0;
+}
+
+.marquee-label {
+    position: absolute;
+    top: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 0.35rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: var(--text-light);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 99px;
+    z-index: 5;
+    white-space: nowrap;
+}
+
+.marquee-bottom .marquee-label {
+    top: auto;
+    bottom: -0.7rem;
+}
+
+.marquee-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c9a779;
+    display: inline-block;
+}
+
+.marquee-dot-live {
+    background: #ff3b30;
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6);
+    animation: live-pulse 1.6s ease-out infinite;
+}
+
+@keyframes live-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.55);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(255, 59, 48, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.marquee-item {
+    padding: 0 1rem;
+    position: relative;
+}
+
+/* Card Styling - Minimal & Premium */
+.marquee-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    min-width: 250px;
+    box-shadow: 0 4px 20px -10px rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+    cursor: default;
+}
+
+.marquee-card:hover {
+    transform: translateY(-6px) scale(1.02) !important;
+    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.mc-left,
+.mc-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.mc-right {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.mc-label {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.mc-mood {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.3px;
+}
+
+.mc-pulse-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #ff3b30;
+    letter-spacing: 1.5px;
+}
+
+.mc-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff3b30;
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6);
+    animation: live-pulse-red 2s ease-out infinite;
+}
+
+@keyframes live-pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 59, 48, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
+}
+
+.mc-count {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Floating bounce logic removed as requested */
+.marquee-card {
+    /* Base transform for smooth hover transition */
+    transform: translateY(0);
+}
+
+.marquee-track-left {
+    animation: marquee-scroll-left 60s linear infinite;
+}
+
+.marquee-track-right {
+    animation: marquee-scroll-right 70s linear infinite;
+}
+
+@keyframes marquee-scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-scroll-right {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Soft fade edges so items don't pop in/out */
+.marquee::before,
+.marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.marquee::before {
+    left: 0;
+    background: linear-gradient(to right, #fafafa, rgba(250, 250, 250, 0));
+}
+
+.marquee::after {
+    right: 0;
+    background: linear-gradient(to left, #fafafa, rgba(250, 250, 250, 0));
+}
+
+/* ====== STAGE / FLOATING CARD ====== */
+.wl-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 4;
+    position: relative;
+}
+
+.wl-card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    padding: 2.2rem 2.5rem 1.8rem;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 26px;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 30px 60px -20px rgba(40, 30, 10, 0.18),
+        0 8px 20px -10px rgba(40, 30, 10, 0.08);
+    animation: card-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+        card-float 6s ease-in-out 1s infinite;
+}
+
+@keyframes card-rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes card-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.wl-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #c9a779;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.wl-title {
+    margin: 0 0 1.2rem;
+    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.wl-script {
+    font-family: var(--font-script);
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #555;
+    line-height: 0.9;
+}
+
+.wl-display {
+    font-family: var(--font-main);
+    font-size: 3.6rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    text-transform: uppercase;
+    line-height: 0.9;
+}
+
+.wl-sub {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin: 0 0 1.5rem;
+}
+
+/* ====== FORM ====== */
+.wl-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.wl-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.wl-field label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.wl-field input {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    background: transparent;
+    padding: 0.4rem 0;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.wl-field input::placeholder {
+    color: #b8b3aa;
+    font-weight: 400;
+}
+
+.wl-field input:focus {
+    border-bottom-color: #c9a779;
+}
+
+.wl-field.invalid input {
+    border-bottom-color: #ff3b30;
+    animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.wl-submit {
+    margin-top: 0.4rem;
+    width: 100%;
+    padding: 0.8rem 1.6rem;
+    border: none;
+    background: #000000;
+    color: #ffffff;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    border-radius: 99px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.45);
+}
+
+.wl-submit:hover {
+    transform: translateY(-2px);
+    background: #1a1a1a;
+    box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.5);
+}
+
+.wl-submit:active {
+    transform: translateY(0);
+}
+
+.wl-submit-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 1rem;
+}
+
+.wl-submit:hover .wl-submit-arrow {
+    transform: translateX(4px);
+}
+
+.wl-submit.is-loading {
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.wl-submit.is-loading .wl-submit-arrow {
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wl-fineprint {
+    margin: 0.6rem 0 0;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+/* ====== SUCCESS STATE ====== */
+.wl-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+}
+
+.wl-success.is-visible {
+    display: flex;
+    animation: success-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes success-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wl-success-icon {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: #000000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.45);
+}
+
+.wl-success-title {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.wl-success-sub {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-light);
+    line-height: 1.55;
+    max-width: 320px;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 640px) {
+    .wl-back {
+        bottom: 1.4rem;
+        left: 1.4rem;
+        top: auto;
+    }
+
+    .wl-logo {
+        top: 1.4rem;
+        left: 1.4rem;
+        right: auto;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    .marquee-top {
+        margin-top: 4rem;
+    }
+
+    .marquee-item {
+        font-size: 0.92rem;
+        padding: 0 1.5rem;
+    }
+
+    .marquee-label {
+        font-size: 0.55rem;
+        letter-spacing: 2px;
+        padding: 0.3rem 0.8rem;
+    }
+
+    .wl-card {
+        padding: 2.2rem 1.8rem 1.8rem;
+        max-width: 92vw;
+    }
+
+    .wl-script {
+        font-size: 2.1rem;
+    }
+
+    .wl-display {
+        font-size: 3.2rem;
+    }
+
+    .wl-sub {
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-height: 700px) {
+    .wl-card {
+        padding: 2.2rem 2.4rem 1.8rem;
+    }
+
+    .wl-display {
+        font-size: 3.4rem;
+    }
+
+    .wl-script {
+        font-size: 2.1rem;
+    }
+
+    .wl-sub {
+        margin-bottom: 1.4rem;
+        font-size: 0.88rem;
+    }
+
+    .wl-form {
+        gap: 0.75rem;
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .marquee-track-left,
+    .marquee-track-right,
+    .wl-card,
+    .marquee-dot-live {
+        animation: none !important;
+    }
+}
